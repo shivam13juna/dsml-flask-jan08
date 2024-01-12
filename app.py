@@ -33,9 +33,6 @@ def predict():
 
     loan_req = request.get_json()
 
-    if loan_req['criminal'] == True:
-        return {"block_account": True}
-
     if loan_req['gender'] =='Male':
         gender = 0
     else:
