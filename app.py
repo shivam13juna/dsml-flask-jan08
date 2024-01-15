@@ -12,7 +12,7 @@ with open('classifier.pkl', 'rb') as f:
 
 @app.route('/ping', methods=['GET'])
 def ping():
-    return 'Pinging Model Application!!'
+    return {'message': 'Pinging Model Application!!'}
 
 
 # def do_sth():
