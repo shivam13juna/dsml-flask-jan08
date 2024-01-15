@@ -1,7 +1,7 @@
 from flask import Flask, request # from flask (library) import Flask (class)
 import pickle
 
-app = Flask(__name__) # Flas(__name__) is the name of the application's module or package
+pancakes = Flask(__name__) # Flas(__name__) is the name of the application's module or package
 
 print(__name__)
 
@@ -10,21 +10,54 @@ with open('classifier.pkl', 'rb') as f:
 
 # classifier is a random forest model
 
-@app.route('/ping', methods=['GET'])
+@pancakes.route('/ping', methods=['GET'])
 def ping():
     return {'message': 'Pinging Model Application!!'}
+
+
+
+def sum_something(a, b):
+    return a + b
+
+def sub_something(a, b):
+    return a - b
+
+def mul_something(a, b):
+    return a * b
+# pytest, in pytest unit is a function that you can test independently
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # def do_sth():
 #     return 'Pinging sfsdfsd Model Application!!'
 
-# flask --app app.py run
+# flask --pancakes pancakes.py run
 
 # http://127.0.0.1:5000/ping
 
 # gender, married, credit_history, applicant_income, loan_amount. 
 
-@app.route('/predict', methods = ['POST', 'GET'])
+@pancakes.route('/predict', methods = ['POST', 'GET'])
 def predict():
     """
     Returns the loan approved or not
@@ -60,7 +93,7 @@ def predict():
 
     return {"loan_approval_status": pred}
 
-@app.route("/template", methods = ['GET'])
+@pancakes.route("/template", methods = ['GET'])
 def get_template():
     return {
 	"gender": "Male/Female",
@@ -93,11 +126,11 @@ def get_template():
 
 
 2. Run the Docker container using the command shown below:
-    docker run -d -p 5000:5000 loan-prediction-app # Here first 5000 is the port number of the host machine and second 5000 is the port number of the container.
+    docker run -d -p 5000:5000 loan-prediction-pancakes # Here first 5000 is the port number of the host machine and second 5000 is the port number of the container.
 
 3. To push a docker image named "ano" to docker hub, run the following command:
-    docker tag loan-prediction-app:latest ano/loan-prediction-app:latest
-    docker push ano/loan-prediction-app:latest
+    docker tag loan-prediction-pancakes:latest ano/loan-prediction-pancakes:latest
+    docker push ano/loan-prediction-pancakes:latest
 
 """
 
