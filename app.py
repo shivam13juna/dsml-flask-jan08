@@ -1,11 +1,11 @@
-from flask import Flask, request # from flask (library) import Flask (class)
+from flask import Flask, request, jsonify # from flask (library) import Flask (class)
 import pickle
 
 pancakes = Flask(__name__) # Flas(__name__) is the name of the application's module or package
 
 print(__name__)
 
-with open('classifier.pkl', 'rb') as f:
+with open('new_classifier.pkl', 'rb') as f:
     clf = pickle.load(f)
 
 # classifier is a random forest model
@@ -13,6 +13,51 @@ with open('classifier.pkl', 'rb') as f:
 @pancakes.route('/ping', methods=['GET'])
 def ping():
     return {'message': 'Pinging Model Application!!'}
+
+
+
+@pancakes.route('/predict', methods=['POST', 'GET'])
+def test_predict():
+    loan_req = request.get_json()
+    
+    # Convert the input data to a 2D array
+    #input_data = [[
+    #    test_data['gender'],
+    #    test_data['married'],
+    #    test_data['applicant_income'],
+    #    test_data['loan_amount'],
+    #    test_data['credit_history']
+    #]]
+
+    if loan_req['gender'] == "Male":
+        Gender = 0
+    else:
+        Gender = 1
+
+    if loan_req['married'] == "Unmarried":
+        Married = 0
+    else:
+        Married = 1
+
+    if loan_req['credit_history'] == "Unclear Debts":
+        Credit_History = 0
+    else:
+        Credit_History = 1
+
+    ApplicantIncome = loan_req['applicant_income']
+    LoanAmount = loan_req['loan_amount'] / 1000
+
+    # Making predictions
+    prediction = clf.predict(
+        [[Gender, Married, ApplicantIncome, LoanAmount, Credit_History]])
+    
+    # Assuming clf is a scikit-learn model and input_data is preprocessed correctly
+    
+    # Convert prediction to a human-readable format
+    loan_approval_status = "Approved" if prediction[0] == 1 else "Rejected"
+    #assert response.status_code == 200
+    #assert response.json == {'loan_approval_status': "Rejected"}
+    return jsonify({'loan_approval_status': loan_approval_status})
 
 
 
