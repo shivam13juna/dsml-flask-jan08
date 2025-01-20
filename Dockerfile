@@ -1,4 +1,4 @@
-FROM python:3.8-slim-buster
+FROM python:3.9-slim-buster
 
 # Set the working directory to /app
 
@@ -17,7 +17,6 @@ COPY . .
 # Copy everything from the current directory to the PWD (Present Working Directory) inside the container
 
 # CMD [ "python3", "flask", "run", "--host=0.0.0.0"] 
-EXPOSE 8000
 
 # python3 flask --app app.py run
 CMD ["python", "-m","flask", "--app", "app.py", "run", "--host=0.0.0.0", "--port=8000"]
