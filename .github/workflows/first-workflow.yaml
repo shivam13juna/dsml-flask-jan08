@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v4 # some of the inbuilt functions, provided by github for doing some common tasks. checkout means make a copy of the code from the repo
 
       - name: Install Python-3
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.9'
       
@@ -38,7 +38,7 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Build Docker Image and push to DockerHub
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v6
         with:
           push: true
           tags: shivam13juna/first-action:latest
